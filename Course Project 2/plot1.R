@@ -17,16 +17,12 @@ y <- as.numeric(data)
 png("plot1.png", width=480, height=480)
 
 # Plot data points
-plot(x, y, xlab = "Year", ylab = "Emission (tons)", main = "Total PM2.5 emission in US",
-     type = "p", col = "red", bg = "red", pch = 24, cex = 3)
-
-# Create a fit through the data
-fit <-  lm(y ~ x)
-abline(fit, lwd = 2)
-
-# Create a legend in the topright corner
-legend("topright", legend=c("Emission Data Points", "Linear Fit"),
-       col=c("red", "black"), lty=1)
+barplot(height=y, 
+        names.arg=x,
+        xlab = "Year", 
+        ylab = "Emission", 
+        main = expression('PM'[2.5]*' Emission in US'),
+        col = "green")
 
 # Turn Off the Graphics Device
 dev.off()

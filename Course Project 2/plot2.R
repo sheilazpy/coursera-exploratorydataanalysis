@@ -17,12 +17,12 @@ y <- as.numeric(data)
 ## Open Graphics device
 png("plot2.png", width=480, height=480)
 
-# Plot data points
+# Plot Data
 barplot(height=y,
         names.arg=x,
         xlab = "Year",
-        ylab = "Emission (tons)",
-        main = "Total PM2.5 emission in Baltimore City, Maryland",
+        ylab = "Emission",
+        main = expression('PM'[2.5]*' Emission in Baltimore City, MA'),
         col = "red")
 
 
