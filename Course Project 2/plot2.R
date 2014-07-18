@@ -6,14 +6,13 @@ if(!exists("NEI")){
   NEI$year <- as.factor(NEI$year)
 }
 
-# Calculate total emissions per year
+# Subset data from Baltimore, and calculate the total emission
 data_sub <- NEI[NEI$fips == "24510",]
 data <- sapply(split(data_sub, data_sub$year), function(x) sum(x["Emissions"]))
 
 # create x and y data to be plotted
 x <- as.numeric(names(data))
 y <- as.numeric(data)
-
 
 ## Open Graphics device
 png("plot2.png", width=480, height=480)
