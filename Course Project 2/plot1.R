@@ -2,23 +2,17 @@
 if(!exists("NEI")){
     NEI <- readRDS("summarySCC_PM25.rds")
     SCC <- readRDS("Source_Classification_Code.rds") 
-    # Coerce "year-column" to factor
-    NEI$year <- as.factor(NEI$year)
 }
 
 # Calculate total emission in US per year
 data <- sapply(split(NEI, NEI$year), function(x) sum(x["Emissions"]))
 
-# create x and y data to be plotted
-x <- as.numeric(names(data))
-y <- as.numeric(data)
-
 ## Open Graphics device
 png("plot1.png", width=480, height=480)
 
-# Plot data points
-barplot(height=y, 
-        names.arg=x,
+# Plot Data
+barplot(height=as.numeric(data), 
+        names.arg=as.numeric(names(data)),
         xlab = "Year", 
         ylab = "Emission", 
         main = expression('PM'[2.5]*' Emission in US'),
@@ -26,4 +20,3 @@ barplot(height=y,
 
 # Turn Off the Graphics Device
 dev.off()
-print("Plot 1 was created with success!!!")

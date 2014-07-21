@@ -1,23 +1,23 @@
 # Load Data if not already loaded
-if( !exists("NEI") ){
-  NEI <- readRDS("summarySCC_PM25.rds")
-  SCC <- readRDS("Source_Classification_Code.rds") 
-  # Coerce "year-column" to factor
-  NEI$year <- as.factor(NEI$year)
+if(!exists("NEI")){
+    NEI <- readRDS("summarySCC_PM25.rds")
+    SCC <- readRDS("Source_Classification_Code.rds") 
 }
 
 # Subset data from Baltimore
-data_sub <- NEI[NEI$fips == "24510",]
+data <- NEI[NEI$fips == "24510",]
 
-# Create the plot
+# Open Graphics device
 library(ggplot2)
-png(filename="plot3.png", height = 400, width = 700)
+png(filename="plot3.png", height = 480, width = 750)
 
-g <- ggplot(data_sub, aes(x=year, y=Emissions, fill=type)) 
+# Plot Data
+g <- ggplot(data, aes(x=year, y=Emissions, fill=type)) 
 g <- g + facet_grid(. ~ type)
 g <- g + stat_summary(fun.y="sum", geom="bar")
 g <- g + ggtitle(expression('PM'[2.5]*' Emission in Baltimore City per Source Type'))
 g <- g + xlab("Year") + ylab("Emission")
-print(g) 
+print(g)
+
+# Turn Off the Graphics Device
 dev.off()
-print("Plot 3 was created with success!!!")
